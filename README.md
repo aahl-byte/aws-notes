@@ -12,7 +12,7 @@ I'm taking a Goal -> Detail approach here to build a mental model first and prog
 
 ---
 
-*FYI - I'm using AI to compile, organize, hydrate and enhance all of my notes in this repo*
+*FYI - I'm using AI to compile, organize, hydrate and enhance all of my notes in this repo, because if the README above didn't make it obvious, I'm not great at writing things*
 
 # repo notes
 
