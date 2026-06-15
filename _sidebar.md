@@ -1,6 +1,6 @@
 - [home](/home)
 
-- [<span class="domain">☁️ cloud essentials</span>](/notes/cloud_essentials/cloud_essentials.md)
+- [<span class="domain">cloud essentials</span>](/notes/cloud_essentials/cloud_essentials.md)
 
 - **the foundation**
   - [cloud concepts](/notes/cloud_essentials/cloud_concepts.md)
@@ -17,7 +17,7 @@
 - **the synthesis**
   - [well-architected framework](/notes/cloud_essentials/well_architected.md)
 
-- [<span class="domain">🏗 the aws cdk</span>](/notes/cdk/cdk.md)
+- [<span class="domain">the aws cdk</span>](/notes/cdk/cdk.md)
 
 - **the foundation**
   - [cdk concepts](/notes/cdk/cdk_concepts.md)
