@@ -101,8 +101,32 @@ match the existing notes — consistency is part of the learning experience.
 - keep each page anchored to the right→left, onion, learning-psychology
   principles above. when in doubt, re-read the destination-first rule.
 
-## github pages
+## the site (github pages + docsify)
 
-pages serves these markdown files as the site. keep stylesheet links relative
-(`./css/...`) so they resolve under the published path. don't add build tooling
-without reason — the value is in the notes, not the pipeline.
+the notes are published as a website at **https://aahl-byte.github.io/aws-notes/**.
+the markdown files are the source of truth; the site is rendered **client-side by
+[docsify](https://docsify.js.org)** — a single `index.html` at the repo root, no
+build step, no pipeline. this keeps the value in the notes, not the tooling.
+
+how it fits together:
+
+- **`index.html`** — the docsify shell. holds the central theme (the dark palette
+  mirrors `globals.css`) so *every* page is styled from one place. you almost
+  never need to touch this.
+- **`_sidebar.md`** — the navigation, organized by onion tier. **when you add a
+  new note, add it here** or it won't appear in the nav. use site-absolute paths
+  (`/notes/...`).
+- **`_coverpage.md` / `_navbar.md` / `home.md`** — the landing experience.
+- **`.nojekyll`** — required. it stops github pages from running jekyll, which
+  would otherwise hide the `_`-prefixed files docsify depends on. don't delete it.
+
+authoring rules under docsify:
+
+- **note-to-note links stay relative** (`./storage.md`) — docsify resolves them
+  via `relativePath`. nav files (`_sidebar.md`, etc.) use absolute paths (`/...`).
+- the central theme styles everything, so the per-page
+  `<link rel="stylesheet" href="./css/globals.css">` is now **optional/legacy** —
+  harmless if present, not required for the site to look right. keep new pages
+  consistent with their neighbors.
+- preview locally with any static server from the repo root (e.g.
+  `python3 -m http.server`) and open `index.html`.

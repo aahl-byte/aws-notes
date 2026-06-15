@@ -1,5 +1,12 @@
 # aws-notes
-notes for studying aws
+living study notes for AWS, published as a website.
+
+**📖 read the site → https://aahl-byte.github.io/aws-notes/**
+
+the notes are plain markdown under `notes/`. the site is rendered client-side by
+[docsify](https://docsify.js.org) (one `index.html`, no build step) so the
+markdown stays the source of truth. see `CLAUDE.md` for the teaching philosophy
+and how to add a page.
 
 ---
 

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>aws notes — living study notes for AWS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Living study notes for AWS — learned right to left, structured like an onion. Understand how big things get done first, then peel into the detail." />
+  <meta name="theme-color" content="#0B0B0A" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- base theme: docsify-themeable (simple dark), then overridden below -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" />
+
+  <style>
+    :root {
+      /* ---- palette (mirrors notes/cloud_essentials/css/globals.css) ---- */
+      --color-bg:        #0B0B0A;
+      --color-bg-soft:   #111110;
+      --color-bg-panel:  #0d0d0c;
+      --color-dark-red:  #982649;
+      --color-light-red: #D75B80;
+      --color-purple:    #9489D1;
+      --color-dark-gray: #7C8483;
+      --color-light-gray:#CFCFC9;
+      --color-blue-gray: #71A2B6;
+      --color-highlight: #EDB88B;
+      --color-light-blue:#97BCD8;
+      --hairline:        rgba(207,207,201,0.08);
+
+      /* ---- docsify-themeable variable overrides ---- */
+      --base-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --base-font-size: 16px;
+      --base-line-height: 1.72;
+      --base-color: var(--color-light-gray);
+      --base-background-color: var(--color-bg);
+      --theme-color: var(--color-purple);
+      --mono-font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --content-max-width: 47rem;
+
+      --link-color: var(--color-purple);
+      --link-color--hover: var(--color-light-red);
+      --link-text-decoration: none;
+
+      --sidebar-width: 18.5rem;
+      --sidebar-background: var(--color-bg-panel);
+      --sidebar-border-color: var(--hairline);
+      --sidebar-name-color: var(--color-light-gray);
+      --sidebar-nav-link-color: var(--color-dark-gray);
+      --sidebar-nav-link-color--active: var(--color-highlight);
+      --sidebar-nav-link-text-decoration: none;
+      --sidebar-nav-link-text-decoration--active: none;
+      --sidebar-nav-link-border-color--active: var(--color-highlight);
+      --sidebar-nav-pagelink-background-image--active: none;
+      --sidebar-nav-pagelink-background-image--collapse: none;
+      --sidebar-nav-pagelink-background-image--loaded: none;
+      --sidebar-nav-strong-color: var(--color-blue-gray);
+
+      --blockquote-border-color: var(--color-dark-red);
+      --blockquote-background: rgba(152, 38, 73, 0.08);
+      --blockquote-color: var(--color-light-gray);
+
+      --code-theme-background: #121211;
+      --code-inline-background: rgba(237, 184, 139, 0.10);
+      --code-inline-color: var(--color-highlight);
+
+      --search-input-background-color: #121211;
+      --search-input-border-color: var(--hairline);
+      --search-result-heading-color: var(--color-light-blue);
+      --search-result-item-color: var(--color-light-gray);
+
+      --navbar-root-color: var(--color-dark-gray);
+      --navbar-root-color--active: var(--color-highlight);
+    }
+
+    /* ---------- global polish ---------- */
+    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    ::selection { background: rgba(148, 137, 209, 0.35); }
+
+    /* <em> is a colored highlight, not italics — same as the notes' stylesheet */
+    .markdown-section em { color: var(--color-highlight); font-style: normal; }
+
+    /* ---------- headings (match globals.css hierarchy) ---------- */
+    .markdown-section h1 { color: var(--color-light-gray); font-weight: 800; letter-spacing: -0.02em; font-size: 2.2rem; }
+    .markdown-section h2 {
+      color: var(--color-light-gray); font-weight: 700; margin-top: 3.2rem;
+      padding-bottom: 0.35em; border-bottom: 1px solid var(--hairline); letter-spacing: -0.01em;
+    }
+    .markdown-section h3 { color: var(--color-light-blue); font-weight: 700; margin-top: 2rem; }
+    .markdown-section h4 { color: var(--color-dark-red); font-weight: 800; }
+
+    /* ---------- links, lists, rules ---------- */
+    .markdown-section a { border-bottom: 1px solid rgba(148, 137, 209, 0.35); transition: border-color .15s ease, color .15s ease; }
+    .markdown-section a:hover { color: var(--color-light-red); border-bottom-color: var(--color-light-red); }
+    .markdown-section li { color: var(--color-dark-gray); }
+    .markdown-section li > strong, .markdown-section p > strong { color: var(--color-light-gray); }
+    .markdown-section hr { border-bottom: 1px solid var(--hairline); margin: 3rem 0; }
+
+    /* ---------- blockquotes ---------- */
+    .markdown-section blockquote { border-radius: 0 10px 10px 0; padding: 0.6em 1.1em; font-size: 1.05rem; }
+    .markdown-section blockquote p { color: var(--color-light-gray); }
+
+    /* ---------- code & tables ---------- */
+    .markdown-section pre, .markdown-section pre > code { border-radius: 10px; }
+    .markdown-section pre { border: 1px solid var(--hairline); }
+    .markdown-section table { display: table; width: 100%; border-collapse: collapse; }
+    .markdown-section table th { color: var(--color-light-blue); border-bottom: 2px solid var(--hairline); }
+    .markdown-section table td, .markdown-section table th { border: 1px solid var(--hairline); }
+    .markdown-section tr { background: transparent; border: 0; }
+    .markdown-section tr:nth-child(2n) { background: rgba(255, 255, 255, 0.02); }
+
+    /* ---------- sidebar ---------- */
+    .sidebar { border-right: 1px solid var(--hairline); }
+    .sidebar-nav > ul > li > strong,
+    .sidebar > h1 + .sidebar-nav strong {
+      display: block; margin: 1.4rem 0 0.3rem; padding-left: 0; font-size: 0.72rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-blue-gray); font-weight: 700;
+    }
+    .sidebar-nav li > a { font-weight: 500; }
+    .app-name-link { font-weight: 800 !important; letter-spacing: -0.01em; }
+    .app-name-link small { display:block; font-weight: 500; font-size: 0.7rem; color: var(--color-dark-gray); letter-spacing: 0.04em; }
+
+    /* ---------- cover page ---------- */
+    section.cover.show { background: var(--color-bg) !important; }
+    section.cover {
+      background:
+        radial-gradient(900px 520px at 18% 8%, rgba(148, 137, 209, 0.20), transparent 60%),
+        radial-gradient(820px 600px at 86% 92%, rgba(152, 38, 73, 0.22), transparent 62%),
+        radial-gradient(600px 400px at 50% 50%, rgba(113, 162, 182, 0.06), transparent 70%),
+        var(--color-bg) !important;
+    }
+    section.cover .cover-main { max-width: 44rem; }
+    section.cover .cover-main > h1 { margin: 0 0 1.2rem; }
+    section.cover .cover-main > h1 a {
+      font-size: clamp(2.8rem, 7vw, 4.6rem); font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(100deg, var(--color-highlight), var(--color-light-red) 45%, var(--color-purple));
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+      border: 0;
+    }
+    section.cover .cover-main > h1 a small { display:none; }
+    section.cover blockquote p { font-size: 1.3rem; color: var(--color-light-gray); font-weight: 400; }
+    section.cover .cover-main > p:last-child a {
+      border: 1px solid rgba(148, 137, 209, 0.55); border-radius: 2rem; padding: 0.62em 1.7em;
+      color: var(--color-light-gray); background: transparent; font-weight: 600;
+      transition: transform .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
+    }
+    section.cover .cover-main > p:last-child a:hover { transform: translateY(-2px); border-color: var(--color-purple); }
+    section.cover .cover-main > p:last-child a:first-child {
+      background: linear-gradient(100deg, var(--color-purple), var(--color-light-red));
+      border-color: transparent; color: #0B0B0A;
+    }
+    section.cover .cover-main > p:last-child a:first-child:hover { color: #0B0B0A; box-shadow: 0 8px 26px rgba(148, 137, 209, 0.35); }
+    section.cover ul { color: var(--color-dark-gray); }
+    section.cover ul li em { color: var(--color-highlight); font-style: normal; }
+
+    /* ---------- home page: card grid ---------- */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin: 2rem 0 1rem; }
+    .markdown-section .card {
+      display: block; padding: 1.3rem 1.45rem; border: 1px solid var(--hairline); border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0));
+      text-decoration: none !important; border-bottom: 1px solid var(--hairline) !important;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .markdown-section .card:hover { transform: translateY(-4px); border-color: rgba(148, 137, 209, 0.6); box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45); }
+    .markdown-section .card .tier { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-blue-gray); font-weight: 700; }
+    .markdown-section .card h3 { margin: 0.35rem 0 0.5rem; color: var(--color-highlight); font-size: 1.18rem; }
+    .markdown-section .card p { margin: 0; color: var(--color-dark-gray); font-size: 0.92rem; line-height: 1.55; }
+
+    /* ---------- home page: the onion diagram ---------- */
+    .onion { display: grid; place-items: center; margin: 2.2rem 0; }
+    .onion .layer {
+      display: grid; place-items: start center; padding-top: 1.1rem; border-radius: 50% 50% 14px 14px;
+      text-align: center; font-weight: 700; width: 100%;
+    }
+    .onion .l1 { max-width: 30rem; padding: 1.3rem 1.3rem 1.6rem; background: rgba(148, 137, 209, 0.10); border: 1px solid rgba(148, 137, 209, 0.35); color: var(--color-purple); }
+    .onion .l2 { max-width: 22rem; padding: 1.2rem 1.2rem 1.5rem; margin-top: 1rem; background: rgba(113, 162, 182, 0.10); border: 1px solid rgba(113, 162, 182, 0.35); color: var(--color-blue-gray); }
+    .onion .l3 { max-width: 14rem; padding: 1.1rem; margin-top: 1rem; background: rgba(237, 184, 139, 0.12); border: 1px solid rgba(237, 184, 139, 0.4); color: var(--color-highlight); border-radius: 50%; aspect-ratio: 1 / 0.7; place-content: center; }
+    .onion .layer small { display: block; font-weight: 500; font-size: 0.78rem; color: var(--color-dark-gray); margin-top: 0.25rem; }
+
+    /* ---------- misc ---------- */
+    .docsify-pagination-container { border-top: 1px solid var(--hairline); }
+    .pagination-item-label { color: var(--color-purple); }
+    .docsify-copy-code-button { background: var(--color-bg-soft) !important; color: var(--color-dark-gray) !important; border: 1px solid var(--hairline); }
+    img.emoji { height: 1.1em; }
+  </style>
+</head>
+<body>
+  <div id="app">loading the notes…</div>
+
+  <script>
+    window.$docsify = {
+      name: 'aws notes<small>living study notes</small>',
+      nameLink: '#/',
+      repo: 'aahl-byte/aws-notes',
+      homepage: 'home.md',
+      loadSidebar: true,
+      loadNavbar: true,
+      subMaxLevel: 2,
+      coverpage: true,
+      onlyCover: false,
+      relativePath: true,
+      auto2top: true,
+      maxLevel: 4,
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md',
+        '/.*/_navbar.md': '/_navbar.md'
+      },
+      search: {
+        placeholder: 'search the notes…',
+        noData: 'nothing found — try another word.',
+        depth: 4
+      },
+      pagination: {
+        crossChapter: true,
+        crossChapterText: true
+      }
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+</body>
+</html>
