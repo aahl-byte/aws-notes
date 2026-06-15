@@ -4,15 +4,15 @@
 
 # Why?
 
-I need things explained with the WHY before the HOW, and I need it explained simply.
-The AWS documentation was... Overwhelming, so this project is intended to provide a much simpler introduction.
+I need things explained with the WHY before the HOW, and I need it explained simply;
 
-So, I compiled these notes to help me simplify and learn the AWS framework.
+The AWS documentation was... Overwhelming, so this project is intended to provide a much simpler introduction;
+
 I'm taking a Goal -> Detail approach here to build a mental model first and progressively add more details.
 
-I'm using AI to compile, organize, hydrate and enhance all of my notes in this repo - FYI
-
 ---
+
+*FYI - I'm using AI to compile, organize, hydrate and enhance all of my notes in this repo*
 
 # repo notes
 
