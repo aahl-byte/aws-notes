@@ -1,39 +1,23 @@
-# aws-notes
-living study notes for AWS, published as a website.
+# Where
 
-**📖 read the site → https://aahl-byte.github.io/aws-notes/**
+**read the site - https://aahl-byte.github.io/aws-notes/**
+
+# Why?
+
+I need things explained with the WHY before the HOW, and I need it explained simply.
+The AWS documentation was... Overwhelming, so this project is intended to provide a much simpler introduction.
+
+So, I compiled these notes to help me simplify and learn the AWS framework.
+I'm taking a Goal -> Detail approach here to build a mental model first and progressively add more details.
+
+I'm using AI to compile, organize, hydrate and enhance all of my notes in this repo - FYI
+
+---
+
+# repo notes
 
 the notes are plain markdown under `notes/`. the site is rendered client-side by
 [docsify](https://docsify.js.org) (one `index.html`, no build step) so the
 markdown stays the source of truth. see `CLAUDE.md` for the teaching philosophy
 and how to add a page.
 
----
-
-## links
-
-[home](https://aws.amazon.com)
-
-[getting started](https://aws.amazon.com/getting-started)
-
-[training & classes](https://aws.amazon.com/training/)
-
-[what's new](https://aws.amazon.com/new)
-
-[rampup guides](https://aws.amazon.com/training/ramp-up-guides)
-
-
-[workshops](https://workshops.aws/)
-
----
-
-## tutorials
-
-### getting started from scratch:
-[notes](./notes/cloud_essentials/cloud_essentials.md)
-- [cloud essentials](https://explore.skillbuilder.aws/learn/public/learning_plan/view/82/cloud-essentials-learning-plan-earn-a-learning-badge) -- free
-- [cloud essentials w/ labs](https://explore.skillbuilder.aws/learn/public/learning_plan/view/8/cloud-essentials-learning-plan-includes-labs-earn-a-learning-badge) --  subscription ( $30/mo )
-
-
-
----
