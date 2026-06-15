@@ -209,9 +209,15 @@
     }
 
     /* ---------- search on its own page ---------- */
-    /* once relocated by the plugin, the search box leaves the sidebar and lives on /search.
-       scoped to .search-relocated so search still works in the sidebar if the script fails. */
-    body.search-relocated .sidebar > .search { display: none; }
+    /* the search box only ever shows on the /search page. gated on .search-relocated so
+       that if the relocation script fails, search still works in the sidebar (graceful fallback). */
+    body.search-relocated:not(.on-search-page) .search { display: none !important; }
+    /* keep the nav (and title) visible while searching — don't let the search plugin hide them */
+    .sidebar .sidebar-nav, .sidebar .app-name { display: block !important; }
+    /* prev/next pagination doesn't belong on the search page */
+    body.on-search-page .docsify-pagination-container { display: none; }
+    /* make sure the pagination footer is always clickable, never covered by another layer */
+    .docsify-pagination-container { position: relative; z-index: 2; }
 
     #search-host { margin-top: 1.4rem; }
     #search-host .search { margin: 0; padding: 0; border: 0; background: transparent; }
@@ -242,6 +248,14 @@
     // where it gets room to breathe. defensive: if anything fails, search stays in the sidebar.
     function searchPagePlugin(hook, vm) {
       var search, slot;
+      // park the search box safely back in the sidebar (its home)
+      function park() {
+        try {
+          if (search && slot && slot.parentNode && search.parentNode !== slot.parentNode) {
+            slot.parentNode.insertBefore(search, slot.nextSibling);
+          }
+        } catch (e) {}
+      }
       hook.ready(function () {
         try {
           search = document.querySelector('.sidebar .search') || document.querySelector('.search');
@@ -251,19 +265,25 @@
           document.body.classList.add('search-relocated');
         } catch (e) {}
       });
+      // before the content is re-rendered, get search out of the doomed content area
+      hook.beforeEach(function (content) {
+        park();
+        return content;
+      });
       hook.doneEach(function () {
         try {
-          if (!search) search = document.querySelector('.search');
           if (!search) return;
           var onSearch = vm.route.path === '/search';
           document.body.classList.toggle('on-search-page', onSearch);
-          var host = document.getElementById('search-host');
-          if (onSearch && host) {
-            host.appendChild(search);
-            var input = search.querySelector('input');
-            if (input) setTimeout(function () { input.focus(); }, 0);
-          } else if (!onSearch && slot && slot.parentNode) {
-            slot.parentNode.insertBefore(search, slot.nextSibling);
+          if (onSearch) {
+            var host = document.getElementById('search-host');
+            if (host) {
+              host.appendChild(search);
+              var input = search.querySelector('input');
+              if (input) setTimeout(function () { input.focus(); }, 0);
+            }
+          } else {
+            park();
           }
         } catch (e) {}
       });
@@ -290,7 +310,8 @@
       search: {
         placeholder: 'search the notes…',
         noData: 'nothing found — try another word.',
-        depth: 4
+        depth: 4,
+        hideOtherSidebarContent: false
       },
       pagination: {
         crossChapter: true,
