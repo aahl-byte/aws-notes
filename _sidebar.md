@@ -18,3 +18,20 @@
 
 - **the synthesis**
   - [well-architected framework](/notes/cloud_essentials/well_architected.md)
+
+- [the AWS CDK](/notes/cdk/cdk.md)
+
+- **cdk · foundation**
+  - [cdk concepts](/notes/cdk/cdk_concepts.md)
+
+- **cdk · the model**
+  - [constructs](/notes/cdk/constructs.md)
+  - [the workflow](/notes/cdk/workflow.md)
+
+- **cdk · the craft**
+  - [environments & config](/notes/cdk/environments_config.md)
+  - [resources, permissions & assets](/notes/cdk/resources_permissions_assets.md)
+  - [testing](/notes/cdk/testing.md)
+
+- **cdk · the synthesis**
+  - [pipelines & best practices](/notes/cdk/pipelines_practices.md)
