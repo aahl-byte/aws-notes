@@ -121,6 +121,15 @@
       letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-blue-gray); font-weight: 700;
     }
     .sidebar-nav li > a { font-weight: 500; }
+    /* domain headers — make the two top-level sections obviously distinct from page links */
+    .sidebar-nav .domain {
+      display: block; margin: 1.9rem 0 0.6rem; padding-top: 1.2rem;
+      border-top: 1px solid var(--hairline);
+      font-size: 0.95rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--color-highlight); transition: color .15s ease;
+    }
+    .sidebar-nav a:hover .domain { color: var(--color-light-red); }
+    .sidebar-nav .active > a .domain, .sidebar-nav a.active .domain { color: var(--color-light-red); }
     .app-name-link { font-weight: 800 !important; letter-spacing: -0.01em; }
     .app-name-link small { display:block; font-weight: 500; font-size: 0.7rem; color: var(--color-dark-gray); letter-spacing: 0.04em; }
 
