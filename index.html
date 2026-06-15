@@ -271,6 +271,12 @@
         return content;
       });
       hook.doneEach(function () {
+        // on small screens the nav is a full-screen drawer — auto-close it after a selection
+        try {
+          if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+            document.body.classList.remove('close');
+          }
+        } catch (e) {}
         try {
           if (!search) return;
           var onSearch = vm.route.path === '/search';
