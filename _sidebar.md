@@ -1,4 +1,5 @@
 - [home](/home)
+- [search](/search)
 
 - [<span class="domain">cloud essentials</span>](/notes/cloud_essentials/cloud_essentials.md)
 

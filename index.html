@@ -195,12 +195,80 @@
     .pagination-item-label { color: var(--color-purple); }
     .docsify-copy-code-button { background: var(--color-bg-soft) !important; color: var(--color-dark-gray) !important; border: 1px solid var(--hairline); }
     img.emoji { height: 1.1em; }
+
+    /* ---------- responsive sidebar width ---------- */
+    /* normal tablets (769–1199px) keep the default width (--sidebar-width: 18.5rem) */
+    /* desktop: 50% wider */
+    @media (min-width: 1200px) {
+      :root { --sidebar-width: 27.75rem; }
+    }
+    /* phones & small tablets: the drawer covers the full screen */
+    @media (max-width: 768px) {
+      :root { --sidebar-width: 100vw; }
+      .sidebar { width: 100vw; }
+    }
+
+    /* ---------- search on its own page ---------- */
+    /* once relocated by the plugin, the search box leaves the sidebar and lives on /search.
+       scoped to .search-relocated so search still works in the sidebar if the script fails. */
+    body.search-relocated .sidebar > .search { display: none; }
+
+    #search-host { margin-top: 1.4rem; }
+    #search-host .search { margin: 0; padding: 0; border: 0; background: transparent; }
+    #search-host .search .input-wrap { margin: 0; position: relative; }
+    #search-host .search input {
+      box-sizing: border-box; width: 100%; font-size: 1.2rem; line-height: 1.4;
+      padding: 0.95rem 1.15rem; color: var(--color-light-gray);
+      background: var(--color-bg-soft); border: 1px solid var(--hairline);
+      border-radius: 12px; outline: none; transition: border-color .15s ease;
+    }
+    #search-host .search input:focus { border-color: var(--color-purple); }
+    #search-host .search .clear-button { top: 0.55rem; right: 0.5rem; }
+    #search-host .search .results-panel { display: none; margin-top: 1.6rem; }
+    #search-host .search .results-panel.show { display: block; }
+    #search-host .search .matching-post { border: 0; border-bottom: 1px solid var(--hairline); padding: 1.1rem 0; }
+    #search-host .search .matching-post:last-child { border-bottom: 0; }
+    #search-host .search .matching-post h2 { margin: 0 0 0.3rem; padding: 0; border: 0; font-size: 1.06rem; color: var(--color-light-blue); }
+    #search-host .search .matching-post p { margin: 0; color: var(--color-dark-gray); font-size: 0.92rem; }
+    #search-host .search .search-keyword { color: var(--color-highlight); font-style: normal; background: rgba(237, 184, 139, 0.10); padding: 0 3px; border-radius: 3px; }
+    #search-host .search p.empty { color: var(--color-dark-gray); padding: 1rem 0; }
   </style>
 </head>
 <body>
   <div id="app">loading the notes…</div>
 
   <script>
+    // relocate the docsify search box out of the sidebar and onto the /search page,
+    // where it gets room to breathe. defensive: if anything fails, search stays in the sidebar.
+    function searchPagePlugin(hook, vm) {
+      var search, slot;
+      hook.ready(function () {
+        try {
+          search = document.querySelector('.sidebar .search') || document.querySelector('.search');
+          if (!search) return;
+          slot = document.createComment('search-slot');
+          search.parentNode.insertBefore(slot, search);
+          document.body.classList.add('search-relocated');
+        } catch (e) {}
+      });
+      hook.doneEach(function () {
+        try {
+          if (!search) search = document.querySelector('.search');
+          if (!search) return;
+          var onSearch = vm.route.path === '/search';
+          document.body.classList.toggle('on-search-page', onSearch);
+          var host = document.getElementById('search-host');
+          if (onSearch && host) {
+            host.appendChild(search);
+            var input = search.querySelector('input');
+            if (input) setTimeout(function () { input.focus(); }, 0);
+          } else if (!onSearch && slot && slot.parentNode) {
+            slot.parentNode.insertBefore(search, slot.nextSibling);
+          }
+        } catch (e) {}
+      });
+    }
+
     window.$docsify = {
       name: 'aws notes<small>living study notes</small>',
       nameLink: '#/',
@@ -214,6 +282,7 @@
       relativePath: true,
       auto2top: true,
       maxLevel: 4,
+      plugins: [searchPagePlugin],
       alias: {
         '/.*/_sidebar.md': '/_sidebar.md',
         '/.*/_navbar.md': '/_navbar.md'

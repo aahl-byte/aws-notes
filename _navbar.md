@@ -1,3 +1,5 @@
 - [home](/home)
+- [search](/search)
 - [cloud essentials](/notes/cloud_essentials/cloud_essentials.md)
+- [the aws cdk](/notes/cdk/cdk.md)
 - [github](https://github.com/aahl-byte/aws-notes)
