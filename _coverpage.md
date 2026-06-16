@@ -1,3 +1,6 @@
+<!-- _coverpage.md — the landing splash. Nav files use ABSOLUTE paths (/...).
+     The first CTA renders as the primary (filled) button. -->
+
 # aws notes
 
 > living study notes for AWS — learned <em>right → left</em>, structured like an onion.
@@ -6,6 +9,5 @@
 - a foundation you can stop at any depth and still hold a true picture
 - the product is *understanding*, not coverage
 
-[start learning](/home)
-[the cloud essentials](/notes/cloud_essentials/cloud_essentials.md)
-[github](https://github.com/aahl-byte/aws-notes)
+[start reading](/home.md)
+[search](/search.md)

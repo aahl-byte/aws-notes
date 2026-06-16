@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="./css/globals.css">
+
 # the notes
 
 > compiled and organized by AI — a living set of study notes for AWS, shaped to fit the cloud into your head instead of overwhelming it.
@@ -18,7 +20,9 @@ they're layered like an onion:
 
 each layer holds up on its own, so a quick skim still leaves you with a true picture. read top to bottom the first time through — each tier leans on the one above it — then jump around once the shape is in your head.
 
-## the tiers
+## cloud essentials
+
+how the cloud actually works — the foundation everything else rests on.
 
 <div class="cards">
   <a class="card" href="#/notes/cloud_essentials/cloud_concepts.md">
@@ -52,17 +56,17 @@ each layer holds up on its own, so a quick skim still leaves you with a true pic
     <p>connecting it all, and reaching users quickly and safely.</p>
   </a>
   <a class="card" href="#/notes/cloud_essentials/security_identity.md">
-    <span class="tier">③ cross-cutting craft</span>
+    <span class="tier">③ cross-cutting</span>
     <h3>security &amp; identity</h3>
     <p>who can do what, and how responsibility is split with AWS.</p>
   </a>
   <a class="card" href="#/notes/cloud_essentials/monitoring_management.md">
-    <span class="tier">③ cross-cutting craft</span>
+    <span class="tier">③ cross-cutting</span>
     <h3>monitoring &amp; management</h3>
     <p>seeing what your systems do, and running them at scale.</p>
   </a>
   <a class="card" href="#/notes/cloud_essentials/billing_pricing.md">
-    <span class="tier">③ cross-cutting craft</span>
+    <span class="tier">③ cross-cutting</span>
     <h3>billing &amp; pricing</h3>
     <p>what it costs, and how not to be surprised by the bill.</p>
   </a>
@@ -73,6 +77,48 @@ each layer holds up on its own, so a quick skim still leaves you with a true pic
   </a>
 </div>
 
+## the aws cdk
+
+defining that infrastructure as real code, instead of clicking through the console.
+
+<div class="cards">
+  <a class="card" href="#/notes/cdk/cdk_concepts.md">
+    <span class="tier">① the foundation</span>
+    <h3>cdk concepts</h3>
+    <p>what the cdk is, and why infrastructure-as-code beats the console.</p>
+  </a>
+  <a class="card" href="#/notes/cdk/constructs.md">
+    <span class="tier">② building blocks</span>
+    <h3>constructs</h3>
+    <p>the reusable pieces you assemble your infrastructure from.</p>
+  </a>
+  <a class="card" href="#/notes/cdk/workflow.md">
+    <span class="tier">② building blocks</span>
+    <h3>the workflow</h3>
+    <p>synth, diff, deploy — the loop you actually live in day to day.</p>
+  </a>
+  <a class="card" href="#/notes/cdk/environments_config.md">
+    <span class="tier">③ cross-cutting</span>
+    <h3>environments &amp; config</h3>
+    <p>one codebase across dev, staging, and prod without copy-paste.</p>
+  </a>
+  <a class="card" href="#/notes/cdk/resources_permissions_assets.md">
+    <span class="tier">③ cross-cutting</span>
+    <h3>resources, permissions &amp; assets</h3>
+    <p>wiring services together, granting least-privilege access, shipping files.</p>
+  </a>
+  <a class="card" href="#/notes/cdk/testing.md">
+    <span class="tier">③ cross-cutting</span>
+    <h3>testing</h3>
+    <p>catching mistakes in infrastructure before they reach the account.</p>
+  </a>
+  <a class="card" href="#/notes/cdk/pipelines_practices.md">
+    <span class="tier">④ the synthesis</span>
+    <h3>pipelines &amp; best practices</h3>
+    <p>self-deploying pipelines and the habits that keep a stack healthy.</p>
+  </a>
+</div>
+
 ---
 
-new here? open [cloud concepts](/notes/cloud_essentials/cloud_concepts.md) and read down the sidebar.
+new here? open [cloud concepts](./notes/cloud_essentials/cloud_concepts.md) and read down the sidebar.

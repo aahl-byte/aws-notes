@@ -108,25 +108,40 @@ the markdown files are the source of truth; the site is rendered **client-side b
 [docsify](https://docsify.js.org)** — a single `index.html` at the repo root, no
 build step, no pipeline. this keeps the value in the notes, not the tooling.
 
+this site follows the **notes-architect** standard template (docsify `vue.css`
+base + one central `css/globals.css` palette). the docsify shell lives at the repo
+root, and the notes live under `notes/<learning-plan>/`.
+
 how it fits together:
 
-- **`index.html`** — the docsify shell. holds the central theme (the dark palette
-  mirrors `globals.css`) so *every* page is styled from one place. you almost
-  never need to touch this.
-- **`_sidebar.md`** — the navigation, organized by onion tier. **when you add a
-  new note, add it here** or it won't appear in the nav. use site-absolute paths
-  (`/notes/...`).
-- **`_coverpage.md` / `_navbar.md` / `home.md`** — the landing experience.
+- **`index.html`** — the docsify shell. loads `vue.css` for structure and then
+  `./css/globals.css` for the palette, and configures the bundled **`notesSearch`**
+  plugin (full-text search rendered on `search.md`, with onion breadcrumbs read from
+  `_sidebar.md`) plus a small plugin that auto-closes the mobile nav drawer after a
+  selection. you almost never need to touch this.
+- **`css/globals.css`** — the palette **source of truth**. one central dark theme:
+  the surfaces/ink/accent variables, the `<em>` highlight color, the two-scale
+  sidebar (domains → phases → pages), the search-results styling, and the home-page
+  `.cards`/`.onion` visuals. change the look here, in one place.
+- **`_sidebar.md`** — the navigation as a **two-scale onion**. top-level `**bold**`
+  + `<small>` caption = a DOMAIN; nested `**bold**` = an onion PHASE; links beneath =
+  pages. indent strictly: domain 0, phase 2, page 4 (the `notesSearch` breadcrumb
+  parser depends on it). **when you add a new note, add it here** or it won't appear
+  in the nav — and won't be searchable. use site-absolute paths (`/notes/...`).
+- **`_coverpage.md` / `_navbar.md` / `home.md` / `search.md`** — the landing and
+  search experience. nav files use absolute paths; the first cover CTA is the primary
+  (filled) button.
 - **`.nojekyll`** — required. it stops github pages from running jekyll, which
   would otherwise hide the `_`-prefixed files docsify depends on. don't delete it.
 
 authoring rules under docsify:
 
+- **first line of every content page** is exactly
+  `<link rel="stylesheet" href="./css/globals.css">`. the shell already loads the
+  palette globally, but the per-page link keeps the standard consistent (and the
+  verifier checks it). it resolves to the repo-root `css/` from any page because the
+  SPA's document is always `index.html` at the root.
 - **note-to-note links stay relative** (`./storage.md`) — docsify resolves them
   via `relativePath`. nav files (`_sidebar.md`, etc.) use absolute paths (`/...`).
-- the central theme styles everything, so the per-page
-  `<link rel="stylesheet" href="./css/globals.css">` is now **optional/legacy** —
-  harmless if present, not required for the site to look right. keep new pages
-  consistent with their neighbors.
 - preview locally with any static server from the repo root (e.g.
   `python3 -m http.server`) and open `index.html`.
